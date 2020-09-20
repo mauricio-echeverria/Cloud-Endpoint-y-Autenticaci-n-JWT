@@ -1,0 +1,50 @@
+# POD - API configuration (with Google Endpoints)
+#apiVersion: extensions/v1beta1
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Normal services name
+  name: esp-echo
+spec:
+  # Number of replicas
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 50% # how many pods we can add at a time
+      maxUnavailable: 50%
+  selector:
+    matchLabels:
+      app: esp-echo
+  template:
+    metadata:
+      labels:
+        app: esp-echo
+        tier: backend
+    spec:
+      volumes:
+        - name: credentials
+          secret:
+            secretName: service-account-creds
+      containers:
+        - name: esp-echo
+          image: gcr.io/endpoints-release/echo:latest
+        - name: esp
+          image: gcr.io/endpoints-release/endpoints-runtime:1
+          args: [
+            "--http_port=8080",
+            "--backend=127.0.0.1:8081",
+            "--service=echo-api.endpoints.arched-cabinet-288909.cloud.goog",
+            "--rollout_strategy=managed",
+            "-z=healthz",
+            "--service_account_key=/secrets/cloud-endpoints/echo-cloudendpoint.json"]
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: credentials
+              mountPath: /secrets/cloud-endpoints
+              readOnly: true

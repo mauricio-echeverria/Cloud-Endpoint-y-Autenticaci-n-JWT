@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: "ingress-boss"
+  annotations:
+    kubernetes.io/ingress.allow-http: "true"
+    kubernetes.io/ingress.global-static-ip-name: "ip-cloudendpoint"
+spec:
+  rules:
+  -  http:
+      paths:
+      - backend:
+          serviceName: "esp-echo-service"
+          servicePort: 80
+        path: "/*"
