@@ -1,0 +1,69 @@
+swagger: "2.0"
+info:
+  description: "A simple Google Cloud Endpoints API example."
+  title: "Endpoints Example Cloudendpoint"
+  version: "1.0.0"
+host: "DOMAIN_OPENAPI"
+x-google-endpoints:
+    - name: "DOMAIN_OPENAPI"
+      target: "IP RESERVADA"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+schemes:
+- "https"
+- "http"
+securityDefinitions:
+  apitoken:
+    authorizationUrl: ""
+    flow: "implicit"
+    type: "oauth2"
+    x-google-issuer: "SA_EMAIL_ADDRESS"
+    x-google-jwks_uri: "https://www.googleapis.com/robot/v1/metadata/x509/SA_EMAIL_ADDRESS"
+    x-google-audiences: "DOMAIN_OPENAPI"
+security:
+  - apitoken: []
+paths:
+  "/echo":
+    post:
+      description: "Echo back a given message."
+      operationId: "echo"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Echo"
+          schema:
+            $ref: "#/definitions/echoMessage"
+      parameters:
+      - description: "Message to echo"
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: "#/definitions/echoMessage"
+  "/auth/info/googlejwt":
+    get:
+      description: "Returns the requests' authentication information."
+      operationId: "auth_info_google_jwt"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Authentication info."
+          schema:
+            $ref: "#/definitions/authInfoResponse"
+
+definitions:
+  echoMessage:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+  authInfoResponse:
+    properties:
+      id:
+        type: "string"
+      email:
+        type: "string"
