@@ -218,7 +218,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: "ingress-boss"
+  name: "ingress"
   annotations:
     kubernetes.io/ingress.allow-http: "true"
     kubernetes.io/ingress.global-static-ip-name: "ip-cloudendpoint"
