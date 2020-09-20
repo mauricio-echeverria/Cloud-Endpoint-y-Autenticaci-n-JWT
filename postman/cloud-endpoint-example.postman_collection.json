@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "f818b7fa-4205-468d-8b59-ccef54b20193",
+		"name": "cloud-endpoint-example",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "googlejwt",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "id",
+						"type": "text",
+						"value": "anonymous",
+						"disabled": true
+					},
+					{
+						"key": "email",
+						"type": "text",
+						"value": "mauricio.echeverria.vicencio@gmail.com",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://IP-EXTERNA/auth/info/googlejwt",
+					"protocol": "http",
+					"host": [
+						"IP-EXTERNA"
+					],
+					"path": [
+						"auth",
+						"info",
+						"googlejwt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "echo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "message",
+						"value": "hello world",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"message\":\"hello WORLD\"}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://IP-EXTERNA/echo",
+					"protocol": "http",
+					"host": [
+						"IP-EXTERNA"
+					],
+					"path": [
+						"echo"
+					],
+					"query": [
+						{
+							"key": "message",
+							"value": "hello world",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
